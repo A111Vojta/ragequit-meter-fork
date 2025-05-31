@@ -28,17 +28,6 @@
       margin-bottom: 20px;
     }
 
-    #loginBtn {
-      padding: 12px 24px;
-      font-size: 1.2em;
-      background: orange;
-      border: none;
-      color: black;
-      cursor: pointer;
-      border-radius: 6px;
-      margin-bottom: 30px;
-    }
-
     #rageSlider {
       width: 100%;
       max-width: 800px;
@@ -59,35 +48,20 @@
       margin-left: auto;
       margin-right: auto;
     }
-
-    #logout {
-      margin-top: 40px;
-      padding: 10px 20px;
-      font-size: 1em;
-      background: #444;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>🛠 Ragequit Meter – Admin Panel</h1>
-    <button id="loginBtn">Sign in with Google</button>
-    <div id="adminPanel" style="display: none;">
-      <input type="range" min="1" max="6" id="rageSlider" />
-      <div id="levelText">Loading…</div>
-      <div id="levelGuide">
-        <p>1 – 🧘 Chill</p>
-        <p>2 – ⚠️ Warning</p>
-        <p>3 – 😡 Mad</p>
-        <p>4 – 🤬 Critical</p>
-        <p>5 – 💀 Danger</p>
-        <p>6 – 🚨 EVACUATE</p>
-      </div>
-      <button id="logout">Logout</button>
+    <input type="range" min="1" max="6" id="rageSlider" />
+    <div id="levelText">Loading…</div>
+    <div id="levelGuide">
+      <p>1 – 🧘 Chill</p>
+      <p>2 – ⚠️ Warning</p>
+      <p>3 – 😡 Mad</p>
+      <p>4 – 🤬 Critical</p>
+      <p>5 – 💀 Danger</p>
+      <p>6 – 🚨 EVACUATE</p>
     </div>
   </div>
 </body>
