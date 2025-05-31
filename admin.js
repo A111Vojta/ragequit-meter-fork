@@ -1,5 +1,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import {
+  getAuth,
+  signInAnonymously,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
   getDatabase,
   ref,
   set,
@@ -20,6 +25,7 @@ const firebaseConfig = {
 // ✅ Init Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const auth = getAuth(app);
 
 // ✅ DOM references
 const rageSlider = document.getElementById("rageSlider");
@@ -34,6 +40,24 @@ const rageLabels = [
   "💀 Danger",
   "🚨 EVACUATE"
 ];
+
+// ✅ Sign in anonymously
+signInAnonymously(auth)
+  .then(() => {
+    console.log("✅ Signed in anonymously");
+  })
+  .catch(error => {
+    console.error("❌ Anonymous sign-in failed:", error.message);
+  });
+
+// ✅ Wait for auth before enabling UI
+onAuthStateChanged(auth, user => {
+  if (user) {
+    rageSlider.disabled = false;
+  } else {
+    rageSlider.disabled = true;
+  }
+});
 
 // ✅ Update Firebase when slider changes
 rageSlider.addEventListener("input", () => {
