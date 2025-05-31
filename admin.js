@@ -1,12 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import {
-  getAuth,
-  onAuthStateChanged,
-  signInWithPopup,
-  signOut,
-  GoogleAuthProvider
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import {
   getDatabase,
   ref,
   set,
@@ -27,14 +20,10 @@ const firebaseConfig = {
 // ✅ Init Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
 
 // ✅ DOM references
-const loginBtn = document.getElementById("loginBtn");
 const rageSlider = document.getElementById("rageSlider");
 const levelText = document.getElementById("levelText");
-const adminPanel = document.getElementById("adminPanel");
 
 // ⏳ Level labels
 const rageLabels = [
@@ -45,30 +34,6 @@ const rageLabels = [
   "💀 Danger",
   "🚨 EVACUATE"
 ];
-
-// ✅ Sign-in handler
-loginBtn.onclick = () => {
-  signInWithPopup(auth, provider)
-    .then(result => {
-      console.log("✅ Signed in as:", result.user.email);
-    })
-    .catch(err => {
-      console.error("❌ Login error:", err.message);
-    });
-};
-
-// ✅ Auth listener
-onAuthStateChanged(auth, user => {
-  if (user) {
-    loginBtn.style.display = "none";
-    adminPanel.style.display = "block";
-    rageSlider.disabled = false;
-  } else {
-    loginBtn.style.display = "inline-block";
-    adminPanel.style.display = "none";
-    rageSlider.disabled = true;
-  }
-});
 
 // ✅ Update Firebase when slider changes
 rageSlider.addEventListener("input", () => {
@@ -84,18 +49,5 @@ onValue(ref(db, "rageLevel"), snapshot => {
     levelText.textContent = `Level ${level} – ${rageLabels[level - 1]}`;
   } else {
     levelText.textContent = "⚠️ Invalid level";
-  }
-});
-
-// ✅ Logout handler (after DOM ready)
-window.addEventListener("DOMContentLoaded", () => {
-  const logoutBtn = document.getElementById("logout");
-  if (logoutBtn) {
-    logoutBtn.onclick = () => {
-      signOut(auth).then(() => {
-        console.log("🔒 Signed out");
-        location.reload();
-      });
-    };
   }
 });
